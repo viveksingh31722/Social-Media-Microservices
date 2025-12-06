@@ -2,65 +2,53 @@ version: '3.8'
 
 services:
   api-gateway:
-  build: ./api-gateway
-  ports:
-    - "3000:3000"
-  evn_file: ./api-gateway/.env
-  depends_on:
-    - redis
-    - rabbitmq
-  environment:
-    - REDIS_URL=redis://redis:6379
-    - RABBITMQ_URL=amqp://rabbitmq:5672
-
-  identity-service:
-    build: ./identity-service
-
-    evn_file: ./identity-service/.env
-
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    env_file: ./api-gateway/.env
     depends_on:
       - redis
       - rabbitmq
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://rabbitmq:5672
 
+  identity-service:
+    build: ./identity-service
+    env_file: ./identity-service/.env
+    depends_on:
+      - redis
+      - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
 
   post-service:
     build: ./post-service
-
-    evn_file: ./post-service/.env
-
+    env_file: ./post-service/.env
     depends_on:
       - redis
       - rabbitmq
-
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
 
   media-service:
     build: ./media-service
-
-    evn_file: ./media-service/.env
-
+    env_file: ./media-service/.env
     depends_on:
       - redis
       - rabbitmq
-
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
 
   search-service:
     build: ./search-service
-
-    evn_file: ./search-service/.env
-
+    env_file: ./search-service/.env
     depends_on:
       - redis
       - rabbitmq
-
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -75,9 +63,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-
     healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "-q", 'ping' ]
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 30s
       timeout: 10s
       retries: 5
