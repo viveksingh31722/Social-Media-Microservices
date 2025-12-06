@@ -1,0 +1,15 @@
+# use the official Node.js 18 image as the base image
+FROM node:18-alpine
+
+# set the working directory in the container
+WORKDIR /use/src/app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3004
+
+CMD ["node", "src/server.js"]
