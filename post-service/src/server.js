@@ -8,7 +8,6 @@ const postRoutes = require("./routes/post-routes");
 const errorHandler = require("./middleware/errorHandler");
 const logger = require("./utils/logger");
 const { connectToRabbitMQ } = require("./utils/rabbitmq");
-const { consumeEvent } = require("../../media-service/src/utils/rabbitmq");
 // const rateLimit = require('express-rate-limit')
 
 const app = express();

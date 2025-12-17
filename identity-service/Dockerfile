@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # set the working directory in the container
-WORKDIR /use/src/app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 

@@ -1,6 +1,6 @@
 const { log } = require("winston");
 const logger = require("../utils/logger.js");
-const Post = require("../models/post");
+const Post = require("../models/Post.js");
 const { validateCreatePost } = require("../utils/validation.js");
 const { invalidatePostCache } = require("../utils/deleteCachePost.js");
 const { publishEvent } = require("../utils/rabbitmq.js");
